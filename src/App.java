@@ -10,5 +10,7 @@ public class App {
 
         System.out.println("tu numero es "+ numero);
         plus.close();
+
+        System.out.println("tu mama no te quiere");
     }
 }

@@ -1,0 +1,255 @@
+1
+public class ControlTemperatura {
+
+    // 1. Contar temperaturas mayores a 60 grados
+    public static int contarTemperaturasAltas(int[][] matriz) {
+        int contador = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] > 60) {
+                    contador++;
+                }
+            }
+        }
+        return contador;
+    }
+
+    // 2. Promedio de temperaturas menores a 30 grados
+    public static double promedioTemperaturasBajas(int[][] matriz) {
+        int suma = 0;
+        int contador = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] < 30) {
+                    suma += matriz[i][j];
+                    contador++;
+                }
+            }
+        }
+        if (contador == 0) return 0;  // Para evitar división por 0
+        return (double) suma / contador;
+    }
+
+    // 3. Imprimir temperaturas peligrosas (>75 grados)
+    public static void imprimirTemperaturasPeligrosas(int[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] > 75) {
+                    System.out.println("Temperatura crítica en [" + i + "][" + j + "]: " + matriz[i][j] + " grados");
+                }
+            }
+        }
+    }
+
+    // 4. Encontrar la posición del equipo con mayor temperatura
+    public static int[] equipoMasCaliente(int[][] matriz) {
+        int maxTemp = matriz[0][0];
+        int fila = 0;
+        int columna = 0;
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] > maxTemp) {
+                    maxTemp = matriz[i][j];
+                    fila = i;
+                    columna = j;
+                }
+            }
+        }
+
+        return new int[] { fila, columna };
+    }
+
+    // BONUS: Contar temperaturas fuera del rango [20, 70]
+    public static int contarTemperaturasFueraDeRango(int[][] matriz) {
+        int contador = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] < 20 || matriz[i][j] > 70) {
+                    contador++;
+                }
+            }
+        }
+        return contador;
+    }
+
+    // MAIN para probar todo
+    public static void main(String[] args) {
+        int[][] temperaturas = {
+            {45, 63, 28, 76, 34},
+            {50, 67, 72, 29, 40},
+            {21, 25, 78, 65, 33},
+            {60, 55, 70, 88, 38}
+        };
+
+        System.out.println("1. Cantidad de equipos con más de 60 grados: " + contarTemperaturasAltas(temperaturas));
+
+        System.out.println("2. Promedio de temperaturas menores a 30 grados: " + promedioTemperaturasBajas(temperaturas));
+
+        System.out.println("3. Temperaturas peligrosas (mayores a 75):");
+        imprimirTemperaturasPeligrosas(temperaturas);
+
+        int[] posicion = equipoMasCaliente(temperaturas);
+        System.out.println("4. Posición del equipo más caliente: [" + posicion[0] + "][" + posicion[1] + "]");
+
+        System.out.println("BONUS: Cantidad de temperaturas fuera del rango [20, 70]: " + contarTemperaturasFueraDeRango(temperaturas));
+    }
+}
+2-------------------------------------------
+public class NotasEstudiantes {
+
+    public static void main(String[] args) {
+        int[][] notas = {
+            {78, 95, 60},
+            {40, 50, 30},
+            {85, 62, 90}
+        };
+
+        System.out.println("Aprobados: " + contarEstudiantesAprobados(notas));
+        System.out.println("Promedio notas altas: " + promedioNotasAltas(notas));
+        imprimirNotasBajas(notas);
+
+        int[] pos = posicionNotaMaxima(notas);
+        System.out.println("Posición de la nota más alta: [" + pos[0] + "][" + pos[1] + "]");
+    }
+
+    public static int contarEstudiantesAprobados(int[][] matriz) {
+        int contador = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] >= 60) {
+                    contador++;
+                }
+            }
+        }
+        return contador;
+    }
+
+    public static double promedioNotasAltas(int[][] matriz) {
+        int suma = 0;
+        int cantidad = 0;
+        for (int[] fila : matriz) {
+            for (int nota : fila) {
+                if (nota >= 80) {
+                    suma += nota;
+                    cantidad++;
+                }
+            }
+        }
+        if (cantidad == 0) return 0;
+        return (double) suma / cantidad;
+    }
+
+    public static void imprimirNotasBajas(int[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] < 50) {
+                    System.out.println("Nota baja en [" + i + "][" + j + "]: " + matriz[i][j] + " puntos");
+                }
+            }
+        }
+    }
+
+    public static int[] posicionNotaMaxima(int[][] matriz) {
+        int max = Integer.MIN_VALUE;
+        int[] posicion = new int[2]; // [fila, columna]
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] > max) {
+                    max = matriz[i][j];
+                    posicion[0] = i;
+                    posicion[1] = j;
+                }
+            }
+        }
+        return posicion;
+    }
+}
+3----------------------------------------------
+public class InventarioProductos {
+
+    public static void main(String[] args) {
+        int[][] inventario = {
+            {10, 0, 5},
+            {100, 3, 8},
+            {0, 1, 4}
+        };
+
+        System.out.println("Productos agotados: " + contarProductosAgotados(inventario));
+        System.out.println("Promedio inventario bajo: " + promedioInventarioBajo(inventario));
+        imprimirInventarioCritico(inventario);
+
+        int[] pos = posicionMayorInventario(inventario);
+        System.out.println("Posición de mayor cantidad: [" + pos[0] + "][" + pos[1] + "]");
+
+        // BONUS
+        System.out.println("Total inventario: " + totalInventario(inventario));
+    }
+
+    // Método 1
+    public static int contarProductosAgotados(int[][] matriz) {
+        int contador = 0;
+        for (int[] fila : matriz) {
+            for (int valor : fila) {
+                if (valor == 0) contador++;
+            }
+        }
+        return contador;
+    }
+
+    // Método 2
+    public static double promedioInventarioBajo(int[][] matriz) {
+        int suma = 0;
+        int cantidad = 0;
+        for (int[] fila : matriz) {
+            for (int valor : fila) {
+                if (valor < 20) {
+                    suma += valor;
+                    cantidad++;
+                }
+            }
+        }
+        if (cantidad == 0) return 0;
+        return (double) suma / cantidad;
+    }
+
+    // Método 3
+    public static void imprimirInventarioCritico(int[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] <= 5) {
+                    System.out.println("Inventario crítico en [" + i + "][" + j + "]: " + matriz[i][j] + " unidades");
+                }
+            }
+        }
+    }
+
+    // Método 4
+    public static int[] posicionMayorInventario(int[][] matriz) {
+        int mayor = Integer.MIN_VALUE;
+        int[] pos = new int[2];
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] > mayor) {
+                    mayor = matriz[i][j];
+                    pos[0] = i;
+                    pos[1] = j;
+                }
+            }
+        }
+        return pos;
+    }
+
+    // BONUS
+    public static int totalInventario(int[][] matriz) {
+        int suma = 0;
+        for (int[] fila : matriz) {
+            for (int valor : fila) {
+                suma += valor;
+            }
+        }
+        return suma;
+    }
+}
+
